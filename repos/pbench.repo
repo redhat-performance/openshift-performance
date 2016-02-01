@@ -1,0 +1,22 @@
+# https://distributed-system-analysis.github.io/pbench
+# # https://github.com/distributed-system-analysis/pbench
+# # https://copr.fedorainfracloud.org/coprs/ndokos
+
+[pbench]
+name=Copr repo for pbench owned by ndokos
+#baseurl=https://copr-be.cloud.fedoraproject.org/results/ndokos/pbench/fedora-23-$basearch/
+baseurl=https://copr-be.cloud.fedoraproject.org/results/ndokos/pbench/epel-7-$basearch/
+skip_if_unavailable=1
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/ndokos/pbench/pubkey.gpg
+enabled=0
+
+[pbench-test]
+name=Copr repo for pbench-test owned by ndokos
+#baseurl=https://copr-be.cloud.fedoraproject.org/results/ndokos/pbench-test/fedora-23-$basearch/
+baseurl=https://copr-be.cloud.fedoraproject.org/results/ndokos/pbench-test/epel-7-$basearch/
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/ndokos/pbench-test/pubkey.gpg
+enabled=0
+enabled_metadata=1
