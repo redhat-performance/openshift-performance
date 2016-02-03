@@ -30,10 +30,11 @@ cd openshift-origin-server-v1.1.1.1-940be51-linux-64bit
 sudo openshift start master
 sudo openshift start node --kubeconfig ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/openshift-master.kubeconfig
 cp openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/admin.kubeconfig ~/.kube/config
-sudo docker pull openshift/origin-pod
-sudo docker pull openshift/origin-deployer
-sudo docker pull openshift/origin-docker-builder
-sudo docker pull openshift/origin-docker-registry
+sudo docker pull openshift/origin-pod:v1.1.1.1
+sudo docker pull openshift/origin-deployer:v1.1.1.1
+sudo docker pull openshift/origin-docker-builder:v1.1.1.1
+sudo docker pull openshift/origin-docker-registry:v1.1.1.1
+sudo docker pull openshift/hello-openshift:v1.0.6
 ```
 
 ------------
@@ -48,6 +49,8 @@ oc get nodes
 Create a test pod:
 ```
 oc create -f ~/openshift-performance/svt/content/pod-default.json
+oc get pods
+oc get ev -w
 oc get pods
 ```
 
