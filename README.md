@@ -3,7 +3,9 @@ OpenShift, Kubernetes and Docker Performance Research
 
 # DevConf 2016 VM
 * Download OVA file (or copy from USB disk)
-* Install VirtualBox and kernel-devel RPM that matches your running kernel
+* dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm
+* dnf install kernel-devel VirtualBox
+* lsmod|grep vbox
 * systemctl restart system-modules-load or Reboot to load kernel modules
 * Start VirtualBox
 * Go to File -> Import Appliance -> Select the OVA file
