@@ -18,6 +18,8 @@ OpenShift, Kubernetes and Docker Performance Research
 The next few steps should be baked in to the VM image, but for posterity here's what is included:
 
 ```
+sudo su -
+setenforce 0
 cd $HOME
 git clone https://github.com/jeremyeder/openshift-performance
 wget https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
@@ -32,7 +34,6 @@ sudo docker pull openshift/origin-pod
 sudo docker pull openshift/origin-deployer
 sudo docker pull openshift/origin-docker-builder
 sudo docker pull openshift/origin-docker-registry
-setenforce 0
 ```
 
 ------------
