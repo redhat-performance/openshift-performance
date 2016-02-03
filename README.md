@@ -24,17 +24,17 @@ cd $HOME
 git clone https://github.com/jeremyeder/openshift-performance
 wget https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
 tar xf https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
-sudo ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift /usr/bin
-sudo ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/oc /usr/bin
+ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift /usr/bin
+ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/oc /usr/bin
 cd openshift-origin-server-v1.1.1.1-940be51-linux-64bit
-sudo openshift start master
-sudo openshift start node --kubeconfig ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/openshift-master.kubeconfig
+openshift start master
+openshift start node --kubeconfig ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/openshift-master.kubeconfig
 cp openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/admin.kubeconfig ~/.kube/config
-sudo docker pull openshift/origin-pod:v1.1.1.1
-sudo docker pull openshift/origin-deployer:v1.1.1.1
-sudo docker pull openshift/origin-docker-builder:v1.1.1.1
-sudo docker pull openshift/origin-docker-registry:v1.1.1.1
-sudo docker pull openshift/hello-openshift:v1.0.6
+docker pull openshift/origin-pod:v1.1.1.1
+docker pull openshift/origin-deployer:v1.1.1.1
+docker pull openshift/origin-docker-builder:v1.1.1.1
+docker pull openshift/origin-docker-registry:v1.1.1.1
+docker pull openshift/hello-openshift:v1.0.6
 ```
 
 ------------
