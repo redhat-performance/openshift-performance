@@ -6,16 +6,16 @@ OpenShift, Kubernetes and Docker Performance Research
 * Install VirtualBox and kernel-devel RPM that matches your running kernel
 * systemctl restart system-modules-load or Reboot to load kernel modules
 * Start VirtualBox
-** Go to File -> Import Appliance -> Select the OVA file
-** Click the checkbox to reset the MAC address
-** Click Import
-** Start the VM
-** Username:  devconf2016 Password:  devconf2016
-** User devconf2016 has sudo access
+* Go to File -> Import Appliance -> Select the OVA file
+* Click the checkbox to reset the MAC address
+* Click Import
+* Start the VM
+* Username:  devconf2016 Password:  devconf2016
+* User devconf2016 has sudo access
 
 ------------
 
-The next few steps should be baked in to the VM image, but for posterity here's what is included:
+## The next few steps should be baked in to the VM image, but for posterity here's what is included:
 
 ```
 sudo su -
@@ -39,7 +39,7 @@ docker pull openshift/hello-openshift:v1.0.6
 
 ------------
 
-Verify OpenShift is up and running:
+## Verify OpenShift is up and running:
 
 ```
 openshift version
@@ -47,6 +47,7 @@ oc get nodes
 ```
 
 Create a test pod:
+
 ```
 oc create -f ~/openshift-performance/svt/content/pod-default.json
 oc get pods
