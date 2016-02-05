@@ -10,12 +10,20 @@ Several slides discuss non-determinism in public cloud computing infrastructure.
 
 Here are the instructions to setup the workshop virtual machine, using VirtualBox.  You can also untar the ova file and use qemu-img to convert the vmdk to a qcow2 image for use with KVM and virt-manager.
 
+```
+tar xf devconf2016_v2.ova
+time qemu-img convert -O qcow2 devconf2016_v2-disk1.vmdk devconf2016_v2.qcow2
+virt-manager or virt-install --import ...
+Only boots for me in "rescue mode"
+```
+
 # DevConf 2016 VM
-* Download OVA file (or copy from USB disk)
-* dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm
-* dnf install kernel-devel VirtualBox
-* lsmod|grep vbox
-* systemctl restart system-modules-load or Reboot to load kernel modules
+* Copy devconf2016_v2.ova from USB stick (takes 12 minutes)
+* Install VirtualBox (USB stick has packages for Fedora, Windows, Apple, Debian, Ubuntu)
+# * dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm
+# * dnf install kernel-devel VirtualBox
+# * lsmod|grep vbox
+# * systemctl restart system-modules-load or Reboot to load kernel modules
 * Start VirtualBox
 * Go to File -> Import Appliance -> Select the OVA file
 * Click the checkbox to reset the MAC address
@@ -30,7 +38,7 @@ Here are the instructions to setup the workshop virtual machine, using VirtualBo
 
 ```
 sudo su -
-setenforce 0
+# setenforce 0
 cd $HOME
 git clone https://github.com/jeremyeder/openshift-performance
 wget https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
@@ -40,12 +48,13 @@ ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/oc /usr/bin
 cd openshift-origin-server-v1.1.1.1-940be51-linux-64bit
 openshift start master
 openshift start node --kubeconfig ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/openshift-master.kubeconfig
+mkdir ~/.kube
 cp openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/admin.kubeconfig ~/.kube/config
-docker pull openshift/origin-pod:v1.1.1.1
-docker pull openshift/origin-deployer:v1.1.1.1
-docker pull openshift/origin-docker-builder:v1.1.1.1
-docker pull openshift/origin-docker-registry:v1.1.1.1
-docker pull openshift/hello-openshift:v1.0.6
+# docker pull openshift/origin-pod:v1.1.1.1
+# docker pull openshift/origin-deployer:v1.1.1.1
+# docker pull openshift/origin-docker-builder:v1.1.1.1
+# docker pull openshift/origin-docker-registry:v1.1.1.1
+# docker pull openshift/hello-openshift:v1.0.6
 ```
 
 ------------
