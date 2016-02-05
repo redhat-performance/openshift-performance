@@ -10,14 +10,8 @@ Several slides discuss non-determinism in public cloud computing infrastructure.
 
 Here are the instructions to setup the workshop virtual machine, using VirtualBox.  You can also untar the ova file and use qemu-img to convert the vmdk to a qcow2 image for use with KVM and virt-manager.
 
-```
-qemu-img convert -O qcow2 devconf2016_v2-disk1.vmdk devconf2016_v2.qcow2
-```
-
 # DevConf 2016 VM
-* Copy OVA file devconf2016_v2.ova from USB disk, this takes about 12 minutes.
-* USB disk also contains VirtualBox packages for Fedora, Apple, Ubuntu, Debian...
-* Or use rpmfusion:
+* Download OVA file (or copy from USB disk)
 * dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm
 * dnf install kernel-devel VirtualBox
 * lsmod|grep vbox
@@ -36,25 +30,22 @@ qemu-img convert -O qcow2 devconf2016_v2-disk1.vmdk devconf2016_v2.qcow2
 
 ```
 sudo su -
+setenforce 0
 cd $HOME
-cp -Rp /home/devconf2016/openshift-performance ~
-# git clone https://github.com/jeremyeder/openshift-performance
-# wget https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
-# tar xf https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
-sudo ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift /usr/bin
-sudo ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/oc /usr/bin
+git clone https://github.com/jeremyeder/openshift-performance
+wget https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
+tar xf https://github.com/openshift/origin/releases/download/v1.1.1.1/openshift-origin-server-v1.1.1.1-940be51-linux-64bit.tar.gz
+ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift /usr/bin
+ln -s ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/oc /usr/bin
 cd openshift-origin-server-v1.1.1.1-940be51-linux-64bit
-systemctl stop avahi-daemon
-killall dnsmasq
 openshift start master
 openshift start node --kubeconfig ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/openshift-master.kubeconfig
-mkdir ~/.kube
-cp ~/openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/admin.kubeconfig ~/.kube/config
-# docker pull openshift/origin-pod:v1.1.1.1
-# docker pull openshift/origin-deployer:v1.1.1.1
-# docker pull openshift/origin-docker-builder:v1.1.1.1
-# docker pull openshift/origin-docker-registry:v1.1.1.1
-# docker pull openshift/hello-openshift:v1.0.6
+cp openshift-origin-server-v1.1.1.1-940be51-linux-64bit/openshift.local.config/master/admin.kubeconfig ~/.kube/config
+docker pull openshift/origin-pod:v1.1.1.1
+docker pull openshift/origin-deployer:v1.1.1.1
+docker pull openshift/origin-docker-builder:v1.1.1.1
+docker pull openshift/origin-docker-registry:v1.1.1.1
+docker pull openshift/hello-openshift:v1.0.6
 ```
 
 ------------
@@ -74,7 +65,7 @@ ls -alRZ /run/docker
 docker ps
 docker ps -a
 docker images
-# docker tag jeremyeder/openshift-performance osperf
+docker tag jeremyeder/openshift-performance osperf
 ```
 
 
