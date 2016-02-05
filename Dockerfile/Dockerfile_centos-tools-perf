@@ -8,7 +8,7 @@ RUN curl -o /etc/yum.repos.d/pbench.repo https://raw.githubusercontent.com/jerem
 RUN yum --enablerepo=pbench --enablerepo=pbench-test install -y pbench-agent ; yum clean all
 
 # Clone openshift-performance repo
-RUN git clone http://github.com/jeremyeder/openshift-performance /tmp/openshift-performance
+RUN git clone http://github.com/jeremyeder/openshift-performance
 
 # set cwd when you exec in
 WORKDIR /tmp/openshift-performance
