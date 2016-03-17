@@ -6,7 +6,15 @@ Note : As of now it supports only - Pods, Replicationcontrollers, Services, and 
 
 ```
  $ python cluster-loader.py -f pyconfig.yaml
+
 ```
+Note:
+* For more commandline options please use the "-h" option.
+* The cluster-loader, by default, uses "oc" commands for all the requests but it has kuberbetes support as well, which can be used by supplying the "-k/--kube" flag.
+* The directory "content" contains default file for all the supported object-types.
+* If the "-f" option is not supplied, then the default config file is used -- pyconfig.yaml .
+* For cleaning the environment, use "-d/--clean" option.
+
 # Sample Config File
 ```
 projects:
@@ -18,6 +26,7 @@ projects:
         file: ./content/deployment-config-1rep-template.json
         parameters:
           - IMAGE: hello-openshift
+    quota: demo
     users:
       - num: 2
         role: admin
@@ -46,6 +55,10 @@ projects:
         file: default
   - num: 1
     basename: testproject
+ 
+quotas:
+  - name: demo
+    file: default
 
 tuningsets:
   - name: default
@@ -67,7 +80,7 @@ tuningsets:
 Note :
 * In the "pods" section, the field - "num" stands for percentage, i.e., the number of pods will be "num" percentage of the "total" pods
 * One more thing that you should note for the "pods" section is that the number of pods calculated are rounded down, when they are not exact integers.
- * Foe example : total pods = 35, num = 30, 40, 30 . In this case the pods will be 11, 12 and 11 respectively.
+ * For example : total pods = 35, num = 30, 40, 30 . In this case the pods will be 11, 12 and 11 respectively.
  * Note that the 11+12+11 = 34
 * The template files defined in the "templates" section must have the parameter 'IDENTIFIER'. This will be an integer that should be used in the name of the template and in the name of the resources to ensure that no naming conflicts occur.
 * The Tuning parameters have following function:
@@ -82,9 +95,7 @@ This Config file will create the following objects :
     3 services : testservice0, testservice1, testservice2
     2 resplication controllers : testrc0, testrc1   -- with 5 replicas each
     5 pods : hellopods0, hellopods1, pyrhelpods0, pyrhelpods1, pyrhelpods2
+    1 quota: demo  -- see content/quota-default.json for reference
   1 Project : testproject0
    This project is empty
 ```
-# Reporting
-For the current version, reporting is being handled within the package itself. It basically makes  -- "oc get"  request every 10s and records the time from a pod's submission to when the pod starts running.
-The data is being collected in a file - pod_data.csv 
