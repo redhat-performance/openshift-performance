@@ -14,13 +14,13 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "deploymentconfig${IDENTIFIER}"
+        "name": "deploymentconfig2v${IDENTIFIER}"
       },
       "spec": {
         "template": {
           "metadata": {
             "labels": {
-              "name": "replicationcontroller${IDENTIFIER}"
+              "name": "replicationcontroller2v${IDENTIFIER}"
             }
           },
           "spec": {
@@ -38,8 +38,8 @@
             ],
             "containers": [
               {
-                "name": "helloworld${IDENTIFIER}",
-                "image": "${IMAGE}",
+                "name": "helloworld2v${IDENTIFIER}",
+                "image": "openshift/${IMAGE}",
                 "ports": [
                   {
                     "containerPort": 8080,
@@ -48,11 +48,11 @@
                 ],
                 "env": [
                   {
-                    "name": "ENVVAR1_${IDENTIFIER}",
+                    "name": "ENVVAR1_2v_${IDENTIFIER}",
                     "value": "${ENV_VALUE}"
                   },
                   {
-                    "name": "ENVVAR2_${IDENTIFIER}",
+                    "name": "ENVVAR2_2v_${IDENTIFIER}",
                     "value": "${ENV_VALUE}"
                   }
                 ],
@@ -76,19 +76,6 @@
         "triggers": [
           {
             "type": "ConfigChange"
-          },
-          {
-            "type": "ImageChange",
-            "imageChangeParams": {
-              "automatic": true,
-              "containerNames": [
-                "helloworld"
-              ],
-              "from": {
-                "kind": "ImageStreamTag",
-                "name": "${IMAGE}:latest"
-              }
-            }
           }
         ],
         "strategy": {
@@ -100,15 +87,15 @@
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "service${IDENTIFIER}"
+        "name": "service2v${IDENTIFIER}"
       },
       "spec": {
         "selector": {
-          "name": "replicationcontroller${IDENTIFIER}"
+          "name": "replicationcontroller2v${IDENTIFIER}"
         },
         "ports": [
           {
-            "name": "serviceport${IDENTIFIER}",
+            "name": "serviceport2v${IDENTIFIER}",
             "protocol": "TCP",
             "port": 80,
             "targetPort": 8080

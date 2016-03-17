@@ -5,7 +5,7 @@
     "name": "deploymentConfigTemplate",
     "creationTimestamp": null,
     "annotations": {
-      "description": "This template will create a deploymentConfig with 1 replica, 4 env vars, and a service.",
+      "description": "This template will create a deploymentConfig and a service.",
       "tags": ""
     }
   },
@@ -24,18 +24,6 @@
             }
           },
           "spec": {
-            "volumes": [
-              {
-                "name": "volume-dc1-${IDENTIFIER}",
-                "emptyDir": {}
-              },
-              {
-                "name": "volume-dc1-claim-${IDENTIFIER}",
-                "persistentVolumeClaim": {
-                  "claimName": "myclaim-${IDENTIFIER}"
-                }
-              }
-            ],
             "containers": [
               {
                 "name": "helloworld${IDENTIFIER}",
@@ -44,24 +32,6 @@
                   {
                     "containerPort": 8080,
                     "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "ENVVAR1_${IDENTIFIER}",
-                    "value": "${ENV_VALUE}"
-                  },
-                  {
-                    "name": "ENVVAR2_${IDENTIFIER}",
-                    "value": "${ENV_VALUE}"
-                  },
-                  {
-                    "name": "ENVVAR3_${IDENTIFIER}",
-                    "value": "${ENV_VALUE}"
-                  },
-                  {
-                    "name": "ENVVAR4_${IDENTIFIER}",
-                    "value": "${ENV_VALUE}"
                   }
                 ],
                 "resources": {},
@@ -84,6 +54,19 @@
         "triggers": [
           {
             "type": "ConfigChange"
+          },
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "helloworld"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "${IMAGE}:latest"
+              }
+            }
           }
         ],
         "strategy": {
@@ -129,13 +112,6 @@
       "name": "IMAGE",
       "description": "Image to use for deploymentConfig",
       "value": "hello-openshift",
-      "required": false
-    },
-    {
-      "name": "ENV_VALUE",
-      "description": "Value to use for environment variables",
-      "generate": "expression",
-      "from": "[A-Za-z0-9]{255}",
       "required": false
     }
   ],
